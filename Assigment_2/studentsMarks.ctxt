@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=studentsMarks
+comment0.text=\r\n\ @author\ (M.G.Gimhani\ Kavishika)\r\n\ @Student\ ID\ (24097251)\r\n\ @Date\ (18/9/2023)\r\n\ @Description\ -\ Assigment\ 2\ for\ PROG5001-Fundamentals\ of\ Programming.\ Developed\ a\ simple\ program\ to\ compute\ \r\n\ statistics\ of\ 'students'\ marks\ in\ this\ assignment.\r\n
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+numComments=2
