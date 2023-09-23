@@ -1,8 +1,8 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+//import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+//import java.util.List;
+import java.util.*;
 
 /**
  * @author (M.G.Gimhani Kavishika)
@@ -17,12 +17,14 @@ public class studentsMarks{
     private String studentId;
     private String unitName;
     private List<Integer>marks;
+    int totalMarks;
     
     public studentsMarks(String studnetName,String studentId,String unitName,List<Integer>marks){
         this.studentName = studentName;
         this.studentId = studentId;
         this.unitName = unitName;
         this.marks = marks;
+        this.totalMarks = cacluateTotalMarks();
     }
     
     
@@ -36,7 +38,11 @@ public class studentsMarks{
        
        //Print the data
        for(studentsMarks student :students){
-           
+           System.out.println("Student Name : " +student.studentName);
+           System.out.println("Student ID Number : " +student.studentId);
+           System.out.println("Unit Name : " +student.unitName);
+           System.out.println("Assigment Marks : " +student.marks);
+           System.out.println("Total Marks : " +student.totalMarks);
        }
     }
 
@@ -44,46 +50,58 @@ public class studentsMarks{
 //Function No 1 read the marks from the given file
 public static List<studentsMarks>readMarks(String myFile){
     List<studentsMarks> students = new ArrayList<>();
-    try{
-        File file = new File(myFile);
-        Scanner input = new Scanner(myFile);
-        
-        String studentName = null;
-        String studentId = null;
-        String unitName = null;
-        List<Integer> marks = new ArrayList<>();
-        
-        while(input.hasNextLine()){
-            String lines = input.nextLine();
-            
-            //check comment lines 
-            if(lines.startsWith("#")){
-                continue;
-            }
-            
-           String[] sections = lines.split(",");
-                if (sections.length == 4) {
-                    unitName = sections[0].trim();
-                    studentName = sections[1].trim();
-                    studentId = sections[2].trim();
-                    marks = new ArrayList<>();
-                    String[] marksArray = sections[3].trim().split(" ");
+    
+   try {
+            File file = new File(myFile);
+            Scanner input = new Scanner(file);
+
+            String unitName = null;
+            String studentName = null;
+            String studentId = null;
+            List<Integer> marks = new ArrayList<>();
+
+            while (input.hasNextLine()) {
+                String line = input.nextLine();
+
+                // Check for comments starting with '#' in the code
+                if (line.startsWith("#")) {
+                    continue; 
+                }
+
+                // Using the ',' , divide the lines into sections.
+                /**String[] parts = line.split(",");
+                if (parts.length == 4) {
+                    // Parse unit name
+                    unitName = parts[0].trim();
+
+                    // Parse student name
+                    studentName = parts[1].trim();
+
+                    // Parse student ID
+                    studentId = parts[2].trim();
+
+                    // Parse marks for three assignments
+                    String[] marksArray = parts[3].trim().split(" ");
+                   // marks.clear(); // Clear previous marks
                     for (String mark : marksArray) {
                         marks.add(Integer.parseInt(mark));
-                    } 
-                     students.add(new studentsMarks(unitName, studentName, studentId, marks));
-        }
-    }
-        input.close();
-    } //catch(FileNotFoundException e){
-                //System.out.println("File doesnot found");
-                //System.exit(1);
-           // }
-    return students;
+                    }*/
+
+                    // Create a new Student object and add it to the list
+                    students.add(new studentsMarks(unitName, studentName, studentId, new ArrayList<>(marks)));
+                }
+                input.close();
+            } catch(FileNotFoundException e){
+                System.out.println("File doesnot found");
+            }
+           return students;
 }
 
-
-        
-
-
+public int cacluateTotalMarks(){
+    int totalMarks =0;
+    for (int mark : marks){
+        totalMarks += mark;
+    }
+    return totalMarks; 
+}
 }
