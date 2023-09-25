@@ -1,7 +1,7 @@
 import java.io.*;
 //import java.io.FileNotFoundException;
 import java.util.ArrayList;
-//import java.util.List;
+import java.util.List;
 import java.util.*;
 
 /**
@@ -36,6 +36,14 @@ public class studentsMarks{
        
        List<studentsMarks>students = readMarks(myFile);
        
+       //Get threshold mark from user
+       System.out.println("Enter the threshold for total marks:");
+       int thresholdMark = myReader.nextInt();
+       
+       List<studentsMarks>belowThresholdStudents = findStudentsBelowThreshold(students,thresholdMark);
+       
+       // Print students with total marks below threshold mark
+       System.out.println("Students with total marks below  : " + thresholdMark + ": "); 
        //Print the data
        for(studentsMarks student :students){
            System.out.println("Student Name : " +student.studentName);
@@ -47,7 +55,7 @@ public class studentsMarks{
     }
 
 
-//Function No 1 read the marks from the given file
+// Function No 1 read the marks from the given file
 public static List<studentsMarks>readMarks(String myFile){
     List<studentsMarks> students = new ArrayList<>();
     
@@ -69,7 +77,7 @@ public static List<studentsMarks>readMarks(String myFile){
                 }
 
                 // Using the ',' , divide the lines into sections.
-                /**String[] parts = line.split(",");
+                String[] parts = line.split(",");
                 if (parts.length == 4) {
                     // Parse unit name
                     unitName = parts[0].trim();
@@ -85,23 +93,47 @@ public static List<studentsMarks>readMarks(String myFile){
                    // marks.clear(); // Clear previous marks
                     for (String mark : marksArray) {
                         marks.add(Integer.parseInt(mark));
-                    }*/
+                    }
 
                     // Create a new Student object and add it to the list
                     students.add(new studentsMarks(unitName, studentName, studentId, new ArrayList<>(marks)));
                 }
                 input.close();
-            } catch(FileNotFoundException e){
+            }
+        }catch(FileNotFoundException e){
                 System.out.println("File doesnot found");
             }
            return students;
 }
 
-public int cacluateTotalMarks(){
-    int totalMarks =0;
+// Function No 2 calculate Total Marks 
+private int cacluateTotalMarks(){
+    int total =0;
     for (int mark : marks){
-        totalMarks += mark;
+        total += mark;
     }
-    return totalMarks; 
+    return total; 
 }
+
+public int getTotalMarks(){
+    return totalMarks;
+}
+
+
+// Function No 3 Below threshold mark
+private static List<studentsMarks> findStudentsBelowThreshold(List<studentsMarks> students, int thresholdMark) {
+        // Step 1: Algorithm 3 in pseudocode
+        List<studentsMarks> belowThresholdStudents = new ArrayList<>();
+        for (studentsMarks student : students) {
+            // Calculate the total marks for the student
+            int totalMarks = student.getTotalMarks();
+
+            // Check if the total marks are less than the threshold
+            if (totalMarks < thresholdMark) {
+                // Add the student to the list of below-threshold students
+                belowThresholdStudents.add(student);
+            }
+        }
+        return belowThresholdStudents;
+    }
 }
