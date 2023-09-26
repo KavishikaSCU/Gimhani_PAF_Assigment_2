@@ -42,8 +42,25 @@ public class studentsMarks{
        
        List<studentsMarks>belowThresholdStudents = findStudentsBelowThreshold(students,thresholdMark);
        
+       // Call Highest Marks Top 5 students
+       
+       List<studentsMarks>highestStudent = highestMarksTopStudents(students);
+       
        // Print students with total marks below threshold mark
        System.out.println("Students with total marks below  : " + thresholdMark + ": "); 
+       
+        // Call Lowest Marks Top 5 students
+       
+       List<studentsMarks>loweststStudent =  findLowwestMarksStudents(students);
+       
+       // Print students with total marks below threshold mark
+       System.out.println("Students with total marks below  : " + thresholdMark + ": "); 
+       
+       // Print the top 5 students with the highest total marks
+        System.out.println("Top 5 students with the highest total marks:"+highestStudent);
+        
+        // print the top 5 students with the lowest total marks
+         System.out.println("Top 5 students with the lowwest total marks:"+loweststStudent );
        //Print the data
        for(studentsMarks student :students){
            System.out.println("Student Name : " +student.studentName);
@@ -135,5 +152,36 @@ private static List<studentsMarks> findStudentsBelowThreshold(List<studentsMarks
             }
         }
         return belowThresholdStudents;
+    }
+    
+    // Function No 4 Highest Marks top 5 students
+    private static List<studentsMarks> highestMarksTopStudents(List<studentsMarks> students){
+        List<studentsMarks> highestMarksStudents = new ArrayList<>();
+        for (int i = 0; i < 5 && !students.isEmpty(); i++) {
+            studentsMarks highestStudent = null;
+            for (studentsMarks student : students) {
+                if (highestStudent == null || student.getTotalMarks() > highestStudent.getTotalMarks()) {
+                    highestStudent = student;
+                }
+            }
+            highestMarksStudents.add(highestStudent);
+            students.remove(highestStudent);
+        }
+        return highestMarksStudents;
+    }
+    
+    private static List<studentsMarks> findLowwestMarksStudents(List<studentsMarks> students) {
+        List<studentsMarks> lowwestMarksStudents = new ArrayList<>();
+        for (int i = 0; i < 5 && !students.isEmpty(); i++) {
+            studentsMarks lowwestStudent = null;
+            for (studentsMarks student : students) {
+                if (lowwestStudent == null || student.getTotalMarks() < lowwestStudent.getTotalMarks()) {
+                    lowwestStudent = student;
+                }
+            }
+            lowwestMarksStudents.add(lowwestStudent);
+            students.remove(lowwestStudent);
+        }
+        return lowwestMarksStudents;
     }
 }
