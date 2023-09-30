@@ -114,7 +114,7 @@ public class StudentMarks {
             if (selection == 1) {
                 System.out.print("Enter the filename: ");
                 String filename = myReader.nextLine();
-                students = readStudentDataFromFile(filename);
+                students = readStudentData(filename);
                 System.out.println("Student data has been loaded.");
                 totalCalculated = false;
             } else if (selection == 2) {
@@ -162,7 +162,7 @@ public class StudentMarks {
         }
     }
 
-    private static List<Student> readStudentDataFromFile(String filename) {
+    private static List<Student> readStudentData(String filename) {
         List<Student> students = null;
         try {
             File file = new File(filename);
