@@ -1,9 +1,5 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Formatter;
-import java.util.List;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author (M.G.Gimhani Kavishika)
@@ -13,9 +9,9 @@ import java.util.Scanner;
  * statistics of 'students' marks in this assignment.
  */
 
-public class StudentMarks {
-
-    static class Student {
+// Define the Student class
+    class Student {
+        // Declaring Variables for given details
         private String firstName;
         private String lastName;
         private int studentID;
@@ -24,7 +20,9 @@ public class StudentMarks {
         private Float a3Marks;
         private Float totalMarks = 0.0F;
 
+        // Constructor for the Student class
         public Student(String firstName, String lastName, int studentID, Float a1Marks, Float a2Marks, Float a3Marks) {
+            // Initializing 
             this.firstName = firstName;
             this.lastName = lastName;
             this.studentID = studentID;
@@ -90,7 +88,7 @@ public class StudentMarks {
             this.a3Marks = a3Marks;
         }
     }
-
+public class StudentMarks {
     private static String unitName = "";
 
 
@@ -146,7 +144,7 @@ public class StudentMarks {
                         System.out.println("Top 5 students with the Top marks:");
                         printTopFiveStudents(sortedStudents);
                         System.out.println("Top 5 students with the Lowest total marks:");
-                        printLowestStudents(sortedStudents);
+                        printLowestFiveStudents(sortedStudents);
                     } else {
                         System.out.println("Please calculate total marks first !!");
                     }
@@ -313,7 +311,7 @@ public class StudentMarks {
 
 
     // the students array must be sorted to total marks in descending order
-    private static void printLowestStudents(List<Student> students) {
+    private static void printLowestFiveStudents(List<Student> students) {
         List<Student> studentsWithLowestMarks = new ArrayList<>();
         // setting value to get last 5 values
         int startIndex = students.size() - 5;
