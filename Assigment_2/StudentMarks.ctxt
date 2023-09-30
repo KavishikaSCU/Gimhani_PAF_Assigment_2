@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=StudentMarks
+comment0.text=\r\n\ @author\ (M.G.Gimhani\ Kavishika)\r\n\ @Student\ ID\ (24097251)\r\n\ @Date\ (18\ /\ 9\ /\ 2023)\r\n\ @Description\ -\ Assigment\ 2\ for\ PROG5001-Fundamentals\ of\ Programming.\ Developed\ a\ simple\ program\ to\ compute\r\n\ statistics\ of\ 'students'\ marks\ in\ this\ assignment.\r\n
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=filename
+comment2.target=java.util.List\ readStudentDataFromFile(java.lang.String)
+comment3.params=students
+comment3.target=java.util.List\ calculateTotalMarks(java.util.List)
+comment4.params=students
+comment4.target=void\ printStudentsData(java.util.List)
+comment5.params=col1\ col2\ col3\ col4\ col5\ col6\ col7
+comment5.target=void\ printToColumns(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment6.params=students\ threshold
+comment6.target=void\ printStudentsBelowThreshold(java.util.List,\ float)
+comment7.params=students
+comment7.target=java.util.List\ sortStudents(java.util.List)
+comment8.params=students
+comment8.target=void\ printTopStudents(java.util.List)
+comment9.params=students
+comment9.target=void\ printLowestStudents(java.util.List)
+numComments=10

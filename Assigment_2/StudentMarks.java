@@ -1,15 +1,96 @@
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Formatter;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * @author (M.G.Gimhani Kavishika)
  * @Student ID (24097251)
- * @Date (18/9/2023)
- * @Description - Assigment 2 for PROG5001-Fundamentals of Programming. Developed a simple program to compute 
+ * @Date (18 / 9 / 2023)
+ * @Description - Assigment 2 for PROG5001-Fundamentals of Programming. Developed a simple program to compute
  * statistics of 'students' marks in this assignment.
  */
 
 public class StudentMarks {
+
+    static class Student {
+        private String firstName;
+        private String lastName;
+        private int studentID;
+        private Float a1Marks;
+        private Float a2Marks;
+        private Float a3Marks;
+        private Float totalMarks = 0.0F;
+
+        public Student(String firstName, String lastName, int studentID, Float a1Marks, Float a2Marks, Float a3Marks) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.studentID = studentID;
+            this.a1Marks = a1Marks;
+            this.a2Marks = a2Marks;
+            this.a3Marks = a3Marks;
+        }
+
+        public Float getTotalMarks() {
+            return totalMarks;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+
+        public int getStudentID() {
+            return studentID;
+        }
+
+        public void setStudentID(int studentID) {
+            this.studentID = studentID;
+        }
+
+
+        public void setTotalMarks(Float totalMarks) {
+            this.totalMarks = totalMarks;
+        }
+
+        public Float getA1Marks() {
+            return a1Marks;
+        }
+
+        public void setA1Marks(Float a1Marks) {
+            this.a1Marks = a1Marks;
+        }
+
+        public Float getA2Marks() {
+            return a2Marks;
+        }
+
+        public void setA2Marks(Float a2Marks) {
+            this.a2Marks = a2Marks;
+        }
+
+        public Float getA3Marks() {
+            return a3Marks;
+        }
+
+        public void setA3Marks(Float a3Marks) {
+            this.a3Marks = a3Marks;
+        }
+    }
+
     private static String unitName = "";
 
 
@@ -38,10 +119,10 @@ public class StudentMarks {
                 totalCalculated = false;
             } else if (selection == 2) {
                 if (students != null) {
-                    students = calculateTotalMarksForStudents(students);
+                    students = calculateTotalMarks(students);
                     System.out.println("Total marks have been calculated for students.");
                     totalCalculated = true;
-                    printStudents(students);
+                    printStudentsData(students);
                 } else {
                     System.out.println("Please load student data first !!");
                 }
@@ -63,7 +144,7 @@ public class StudentMarks {
                         // in the resultant array first 5 students will have maximum marks and last 5 students will have minimum marks
                         List<Student> sortedStudents = sortStudents(students);
                         System.out.println("Top 5 students with the Top marks:");
-                        printTopStudents(sortedStudents);
+                        printTopFiveStudents(sortedStudents);
                         System.out.println("Top 5 students with the Lowest total marks:");
                         printLowestStudents(sortedStudents);
                     } else {
@@ -88,7 +169,7 @@ public class StudentMarks {
             //creating fileScanner to read file line by line
             Scanner fileScanner = new Scanner(file);
 
-            long studentID;
+            int studentID;
             students = new ArrayList<>();
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
@@ -99,7 +180,7 @@ public class StudentMarks {
 
                     // trying to parse student id (if it is not valid the line is skipped (can be a comment line)
                     try {
-                        studentID = Long.parseLong(parts[2].trim());
+                        studentID = Integer.parseInt(parts[2].trim());
                     } catch (NumberFormatException e) {
                         continue;
                     }
@@ -134,7 +215,7 @@ public class StudentMarks {
     }
 
     //returns students list with calculated total values
-    private static List<Student> calculateTotalMarksForStudents(List<Student> students) {
+    private static List<Student> calculateTotalMarks(List<Student> students) {
         for (Student student : students) {
             float total = 0.0F;
             if (student.getA1Marks() != null) { // checking if marks are available
@@ -151,7 +232,7 @@ public class StudentMarks {
         return students;
     }
 
-    private static void printStudents(List<Student> students) {
+    private static void printStudentsData(List<Student> students) {
         System.out.println();
         System.out.println("Unit Name: " + unitName);
         System.out.println();
@@ -196,7 +277,7 @@ public class StudentMarks {
                 studentsBelowThreshold.add(student);
             }
         }
-        printStudents(studentsBelowThreshold);
+        printStudentsData(studentsBelowThreshold);
     }
 
     private static List<Student> sortStudents(List<Student> students) {
@@ -217,7 +298,7 @@ public class StudentMarks {
     }
 
     // the students array must be sorted to total marks in descending order
-    private static void printTopStudents(List<Student> students) {
+    private static void printTopFiveStudents(List<Student> students) {
         List<Student> studentsWithTopMarks = new ArrayList<>();
         int startIndex = 5;
         // setting startIndex to the size of the list if students size is less than 5
@@ -227,7 +308,7 @@ public class StudentMarks {
         for (int i = 0; i < startIndex; i++) {
             studentsWithTopMarks.add(students.get(i));
         }
-        printStudents(studentsWithTopMarks);
+        printStudentsData(studentsWithTopMarks);
     }
 
 
@@ -243,86 +324,8 @@ public class StudentMarks {
         for (int i = startIndex; i < students.size(); i++) {
             studentsWithLowestMarks.add(students.get(i));
         }
-        printStudents(studentsWithLowestMarks);
+        printStudentsData(studentsWithLowestMarks);
     }
 
-    static class Student {
-        private String firstName;
-        private String lastName;
-        private Long studentID;
-
-        private Float a1Marks;
-
-        private Float a2Marks;
-
-        private Float a3Marks;
-        private Float totalMarks = 0.0F;
-
-        public Student(String firstName, String lastName, Long studentID, Float a1Marks, Float a2Marks, Float a3Marks) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.studentID = studentID;
-            this.a1Marks = a1Marks;
-            this.a2Marks = a2Marks;
-            this.a3Marks = a3Marks;
-        }
-
-        public Float getTotalMarks() {
-            return totalMarks;
-        }
-
-        public String getFirstName() {
-            return firstName;
-        }
-
-        public void setFirstName(String firstName) {
-            this.firstName = firstName;
-        }
-
-        public String getLastName() {
-            return lastName;
-        }
-
-        public void setLastName(String lastName) {
-            this.lastName = lastName;
-        }
-
-        public Long getStudentID() {
-            return studentID;
-        }
-
-        public void setStudentID(Long studentID) {
-            this.studentID = studentID;
-        }
-
-
-        public void setTotalMarks(Float totalMarks) {
-            this.totalMarks = totalMarks;
-        }
-
-        public Float getA1Marks() {
-            return a1Marks;
-        }
-
-        public void setA1Marks(Float a1Marks) {
-            this.a1Marks = a1Marks;
-        }
-
-        public Float getA2Marks() {
-            return a2Marks;
-        }
-
-        public void setA2Marks(Float a2Marks) {
-            this.a2Marks = a2Marks;
-        }
-
-        public Float getA3Marks() {
-            return a3Marks;
-        }
-
-        public void setA3Marks(Float a3Marks) {
-            this.a3Marks = a3Marks;
-        }
-    }
 
 }
