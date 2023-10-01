@@ -22,7 +22,7 @@ import java.util.*;
 
         // Constructor for the Student class
         public Student(String firstName, String lastName, int studentID, Float a1Marks, Float a2Marks, Float a3Marks) {
-            // Initializing 
+            // Initializing name as two parts,student ID and marks for tree parts
             this.firstName = firstName;
             this.lastName = lastName;
             this.studentID = studentID;
@@ -88,9 +88,10 @@ import java.util.*;
             this.a3Marks = a3Marks;
         }
     }
+    // Define the studentMarks class
 public class StudentMarks {
+    
     private static String unitName = "";
-
 
     public static void main(String[] args) {
         Scanner myReader = new Scanner(System.in);
@@ -160,8 +161,10 @@ public class StudentMarks {
         }
     }
 
+    // F1 readStudentData method for read the data from the file
     private static List<Student> readStudentData(String filename) {
         List<Student> students = null;
+        
         try {
             File file = new File(filename);
             //creating fileScanner to read file line by line
@@ -212,7 +215,7 @@ public class StudentMarks {
         return students;
     }
 
-    //returns students list with calculated total values
+    //F2 returns students list with calculated total values
     private static List<Student> calculateTotalMarks(List<Student> students) {
         for (Student student : students) {
             float total = 0.0F;
@@ -229,11 +232,13 @@ public class StudentMarks {
         }
         return students;
     }
-
+    
+    // Method for print students data
     private static void printStudentsData(List<Student> students) {
         System.out.println();
         System.out.println("Unit Name: " + unitName);
         System.out.println();
+        // Call printToColomns method here to print table
         printToColumns("Last Name", "First Name", "Student ID", "A1", "A2", "A3", "Total Marks");
         for (Student student : students) {
             // getting each assignment marks
@@ -266,15 +271,18 @@ public class StudentMarks {
         formatter.format("%30s %15s %15s %15s %15s %15s %15s\n", col1, col2, col3, col4, col5, col6, col7);
         System.out.println(formatter);
     }
-
+    // This method for print students with total marks below a given threshold
     private static void printStudentsBelowThreshold(List<Student> students, float threshold) {
         // creating new list with students below threshold marks
         List<Student> studentsBelowThreshold = new ArrayList<>();
+        // Loop through every student within the list
         for (Student student : students) {
+            // checking student's total mark is below the threshold
             if (student.getTotalMarks() < threshold) {
                 studentsBelowThreshold.add(student);
             }
         }
+        // Print the students data using printStudentData method
         printStudentsData(studentsBelowThreshold);
     }
 
