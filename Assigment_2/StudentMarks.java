@@ -30,60 +30,60 @@ import java.util.*;
             this.a2Marks = a2Marks;
             this.a3Marks = a3Marks;
         }
-
+        
+        // Getter method for Total Marks
         public Float getTotalMarks() {
             return totalMarks;
         }
-
-        public String getFirstName() {
-            return firstName;
-        }
-
-        public void setFirstName(String firstName) {
-            this.firstName = firstName;
-        }
-
-        public String getLastName() {
-            return lastName;
-        }
-
-        public void setLastName(String lastName) {
-            this.lastName = lastName;
-        }
-
-        public int getStudentID() {
-            return studentID;
-        }
-
-        public void setStudentID(int studentID) {
-            this.studentID = studentID;
-        }
-
-
+        // Setter method for Total Marks
         public void setTotalMarks(Float totalMarks) {
             this.totalMarks = totalMarks;
         }
-
+        // Getter method for First Name
+        public String getFirstName() {
+            return firstName;
+        }
+        // Setter method for Frist Name
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+        // Getter methods for Last Name
+        public String getLastName() {
+            return lastName;
+        }
+        // Setter method for Last Name
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+        // Getter methods for Student ID
+        public int getStudentID() {
+            return studentID;
+        }
+        // Setter method for Student ID
+        public void setStudentID(int studentID) {
+            this.studentID = studentID;
+        }
+        // Getter methods for Aissigment 1 Marks
         public Float getA1Marks() {
             return a1Marks;
         }
-
+        // Setter method for Assigment 1 Marks
         public void setA1Marks(Float a1Marks) {
             this.a1Marks = a1Marks;
         }
-
+        // Getter methods for Aissigment 2 Marks
         public Float getA2Marks() {
             return a2Marks;
         }
-
+        // Setter method for Assigment 2 Marks
         public void setA2Marks(Float a2Marks) {
             this.a2Marks = a2Marks;
         }
-
+        // Getter methods for Aissigment 3 Marks
         public Float getA3Marks() {
             return a3Marks;
         }
-
+        // Setter method for Assigment 3 Marks
         public void setA3Marks(Float a3Marks) {
             this.a3Marks = a3Marks;
         }
@@ -97,7 +97,8 @@ public class StudentMarks {
         Scanner myReader = new Scanner(System.in);
         List<Student> students = null; // Initialize students to null
         boolean totalCalculated = false;
-
+        
+        // Print Menu for all implemented functions 
         while (true) {
             System.out.println("Student Marks Mangement System Menu:");
             System.out.println("1. Read Student Data from File ");
@@ -106,16 +107,18 @@ public class StudentMarks {
             System.out.println("4. Print Top 5 Students with Highest and lowest Total Marks");
             System.out.println("5. Exit ");
 
-            System.out.print("Enter your selection (1-5): ");
+            System.out.print("Please enter your selection (1-5): ");
             int selection = myReader.nextInt();
             myReader.nextLine(); // Consume newline
-
+            // Depending on the user's selection, execute the appropriate step.
             if (selection == 1) {
+                 // Read a file
                 System.out.print("Enter the filename: ");
                 String filename = myReader.nextLine();
                 students = readStudentData(filename);
                 System.out.println("Student data has been loaded.");
                 totalCalculated = false;
+            // Display all students with total marks
             } else if (selection == 2) {
                 if (students != null) {
                     students = calculateTotalMarks(students);
@@ -123,20 +126,25 @@ public class StudentMarks {
                     totalCalculated = true;
                     printStudentsData(students);
                 } else {
+                    // If not user read file frist display message for read file first. 
                     System.out.println("Please load student data first !!");
                 }
+            // Display students below a given threshold
             } else if (selection == 3) {
                 if (students != null) {
                     if (totalCalculated) {
-                        System.out.print("Enter the threshold for total marks: ");
+                        System.out.print("Enter the threshold for total marks (0-100): ");
                         float threshold = myReader.nextFloat();
                         printStudentsBelowThreshold(students, threshold);
+                        // If user not calculate total marks first display message to caculate total marks frist
                     } else {
                         System.out.println("Please calculate total marks first !!");
                     }
+                    // If not user read file frist display message for read file first. 
                 } else {
                     System.out.println("Please load student data first !!");
                 }
+            // Display top 5 students with the highest total marks and  lowest total marks 
             } else if (selection == 4) {
                 if (students != null) {
                     if (totalCalculated) {
@@ -147,21 +155,25 @@ public class StudentMarks {
                         System.out.println("Top 5 students with the Lowest total marks:");
                         printLowestFiveStudents(sortedStudents);
                     } else {
+                        // If user not calculate total marks first display message to caculate total marks 
                         System.out.println("Please calculate total marks first !!");
                     }
+                    // If not user read file frist display message for read file first. 
                 } else {
                     System.out.println("Please load student data first !!.");
                 }
+                 // If the user chooses to exit, return 
             } else if (selection == 5) {
                 System.out.println("Exiting from the program. Thank You!");
                 System.exit(0);
+                 // If the user chooses to wrong option not within 1- 5, Display message to enter valid option return immediately
             } else {
-                System.out.println("Invalid choice. Please enter a valid option.");
+                System.out.println("Invalid selection. Please enter a valid option.");
             }
         }
     }
 
-    // F1 readStudentData method for read the data from the file
+    // ReadStudentData method for read the data from the file
     private static List<Student> readStudentData(String filename) {
         List<Student> students = null;
         
